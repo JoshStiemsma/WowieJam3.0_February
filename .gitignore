@@ -19,12 +19,18 @@ For an up to date version checkout Github maintained Unity.gitignore file withou
 # =============== #
 # Unity generated #
 # =============== #
+
 Temp/
 Library/
 Builds/
+WowieJam3.0.01/Temp/
+WowieJam3.0.01/Library/
+WowieJam3.0.01/Builds/
 /[Li]brary/
 /[Bu]ilds/
-
+/Temp/
+/Library/
+/Builds/
 # ===================================== #
 # Visual Studio / MonoDevelop generated #
 # ===================================== #
