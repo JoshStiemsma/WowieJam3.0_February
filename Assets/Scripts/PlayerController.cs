@@ -9,52 +9,205 @@ public class PlayerController : MonoBehaviour
     public float thrust = 5;
     public float maxSpeed = 5f;
     bool grounded;
+    bool blocking = false;
+    bool swinging = false;
 
-    public enum Player
-    {
-        Left,
-        Right
-    }
+    KeyCode Left, Right, Up, Down;
+    KeyCode Attack, CallThrow;
+
+    Vector3 InitPosition;
+
+    float callThrowTimer = 0;
+
 
     public Player playerType;
+
+    bool inArena = false;
+
+    public int PlayerHealth = 100;
+
+    public GameObject Arm;
+    private Transform ArmPivot;
+    private Vector3 initArmRotation;
+    private Vector3 restingArmRotation,AttackArmRotation;
+
+    private float faceingDirection = -1f;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        InitPosition = this.transform.position;
+        ArmPivot = Arm.transform.parent;
+        initArmRotation = ArmPivot.localEulerAngles;
+        if (playerType == Player.Left)
+        {
+            Left = KeyCode.A;
+            Right = KeyCode.D;
+            Up = KeyCode.W;
+            Down = KeyCode.S;
+            Attack = KeyCode.Space;
+            CallThrow = KeyCode.LeftShift;
+        }
+        else
+        {
+            Left = KeyCode.Keypad4;
+            Right = KeyCode.Keypad6;
+            Up = KeyCode.Keypad8;
+            Down = KeyCode.Keypad5;
+            Attack = KeyCode.Keypad0;
+            CallThrow = KeyCode.KeypadEnter;
+
+        }
+
+        SceneManager.instance.OnStartScene += OnStartArena;
+        SceneManager.instance.OnRoundEnd += OnRoundEnd;
     }
 
     public void Update()
     {
-        if(Input.GetKey("d"))
-        {
-           rb.AddForce(transform.right * thrust);
-        }
-         if(Input.GetKey("a"))
-        {
-           rb.AddForce(-transform.right * thrust);
-        }
-         if(Input.GetKeyDown("w") && grounded == true)
-        {
-           rb.AddForce(transform.up * (thrust * 100));
-           grounded = false;
-        }
+        if (!inArena) return;
 
-         if(rb.velocity.magnitude > maxSpeed)
-         {
-                rb.velocity = rb.velocity.normalized * maxSpeed;
-         }
+        if (!swinging)
+        {
+            HandleMovementInput();
+            HandleCallThrowInput();
+            if (Input.GetKeyUp(Attack))
+            {
+                HandleAttack();
+            }
+        }
+        HandleHealth();
 
-        
+      
 
 
     }
-         void OnCollisionEnter2D(Collision2D col)
+
+    Coroutine AttackRoutine;
+    void HandleAttack()
     {
-       
+        if(AttackRoutine ==null && !blocking)
+        AttackRoutine = StartCoroutine(ArmSwingRoutine());
+    }
+
+    IEnumerator ArmSwingRoutine()
+    {
+        swinging = true;
+        float timer = 0;
+        float swingTimer = .25f;
+        while(timer < swingTimer)
+        {
+            timer += Time.fixedDeltaTime;
+            ArmPivot.localEulerAngles = Vector3.Lerp(restingArmRotation, AttackArmRotation, timer/ swingTimer);
+            yield return new WaitForSeconds(.01f);
+        }
+        while (timer < swingTimer *2)
+        {
+            timer += Time.fixedDeltaTime;
+            ArmPivot.localEulerAngles = Vector3.Lerp(AttackArmRotation, restingArmRotation, timer-swingTimer / swingTimer);
+            yield return new WaitForSeconds(.01f);
+        }
+
+        ArmPivot.localEulerAngles = restingArmRotation;
+        AttackRoutine = null;
+        swinging = false;
+    }
+
+
+    void HandleHealth()
+    {
+        if (Input.GetKeyDown(KeyCode.UpArrow) && playerType == Player.Left)
+        {
+            PlayerHealth = 0;
+        }
+
+        if (PlayerHealth <= 0)
+        {
+            SceneManager.instance.PlayerDied(playerType);
+        }
+    }
+
+    void FaceDirection(bool isLeft)
+    {
+        faceingDirection = isLeft ? -1: 1;
+        ArmPivot.localPosition = new Vector3(15 * faceingDirection, 5, 0);
+
+        restingArmRotation = isLeft ? new Vector3(0,0,-60) : new Vector3(0, 0, 230);
+        AttackArmRotation = isLeft ? new Vector3(0, 0, 0) : new Vector3(0, 0, 180);
+        ArmPivot.localEulerAngles =  restingArmRotation;
+        Debug.Log(ArmPivot.localEulerAngles);
+    }
+
+    void HandleMovementInput()
+    {
+
+        if (Input.GetKey(Right))
+        {
+            rb.AddForce(transform.right * thrust);
+            FaceDirection(false);
+        }else if (Input.GetKey(Left))
+        {
+            rb.AddForce(-transform.right * thrust);
+            FaceDirection(true);
+
+        }
+        if (Input.GetKeyDown(Up) && grounded == true)
+        {
+            rb.AddForce(transform.up * (thrust * 100));
+            grounded = false;
+        }
+
+
+        if (rb.velocity.magnitude > maxSpeed)
+        {
+            rb.velocity = rb.velocity.normalized * maxSpeed;
+        }
+
+    }
+
+
+    void HandleCallThrowInput()
+    {
+        if (Input.GetKey(CallThrow))
+        {
+            callThrowTimer += Time.fixedDeltaTime;
+        }
+        else
+        {
+            callThrowTimer = 0;
+        }
+
+
+        if(callThrowTimer > 5)
+        {
+
+        }
+    }
+
+    void OnRoundEnd()
+    {
+        inArena = false;
+
+    }
+
+    void OnStartArena() {
+        Reset();
+        inArena = true;
+    }
+
+    public void Reset()
+    {
+        PlayerHealth = 100;
+        rb.velocity *= 0;
+        this.transform.position = InitPosition;
+    }
+
+    void OnCollisionEnter2D(Collision2D col)
+    {
        if (col.gameObject.tag == "Ground")
        {
            grounded = true;
-        }
+       }
     }
 
 

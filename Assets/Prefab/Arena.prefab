@@ -1,26 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!50 &8529714192857338383
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7600743167966685245}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!1 &8529714192499038193
 GameObject:
   m_ObjectHideFlags: 0
@@ -454,11 +433,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4817598929160332411, guid: 6e08366f34494a44aa9b92d18ecc3d84,
-        type: 3}
-      propertyPath: thrust
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 6771648736185287150, guid: 6e08366f34494a44aa9b92d18ecc3d84,
         type: 3}
       propertyPath: m_Name
@@ -466,12 +440,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6e08366f34494a44aa9b92d18ecc3d84, type: 3}
---- !u!1 &7600743167966685245 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6771648736185287150, guid: 6e08366f34494a44aa9b92d18ecc3d84,
-    type: 3}
-  m_PrefabInstance: {fileID: 3783860423186295251}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &760797772541479803 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4470979912350818984, guid: 6e08366f34494a44aa9b92d18ecc3d84,
