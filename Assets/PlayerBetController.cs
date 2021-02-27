@@ -17,12 +17,19 @@ public class PlayerBetController : MonoBehaviour
 
 
     int playerTotal = 500;
+
     int betAmount = 100;
+
     private float readyCount = 0;
+
     public TextMeshProUGUI TotalText, BetAmountText,ReadyText;
+
     string readyUpKey => playerType == Player.Left ? "Left Shift": "Key Pad Enter";
+
     string GetReadyText;
+
     string PlayerReadyText = "Ready!";
+
     public bool PlayerReady;
 
     public Action OnPlayerReady;
@@ -30,6 +37,16 @@ public class PlayerBetController : MonoBehaviour
     public Image ReadyFillImage, BetSideBackgroundImage;
 
     public bool BetOnSelf = true;
+
+
+    public int GetBetAmount
+    {
+        get { return betAmount; }
+    }
+    public int GetTotalAmount
+    {
+        get { return playerTotal; }
+    }
 
     private void Start()
     {
@@ -49,10 +66,8 @@ public class PlayerBetController : MonoBehaviour
             LeftKey = KeyCode.Keypad4;
             RightKey = KeyCode.Keypad6;
             ReadyKey = KeyCode.KeypadEnter;
-
         }
     }
-
 
     public void Update()
     {
@@ -63,18 +78,14 @@ public class PlayerBetController : MonoBehaviour
         }
     }
 
+    public bool didPlayerWinBet = false;
     public void EndRound(Player lostPlayer)
     {
-        if(playerType == lostPlayer)
-        {
-            playerTotal -= betAmount;
-        }
-        else
-        {
-            playerTotal += betAmount;
-        }
+        didPlayerWinBet = (BetOnSelf && playerType != lostPlayer) || ( !BetOnSelf && playerType == lostPlayer);
 
-        Reset();
+        if(didPlayerWinBet) playerTotal += betAmount;
+        else playerTotal -= betAmount;
+
     }
 
     void CheckPlayerBets()
@@ -84,16 +95,13 @@ public class PlayerBetController : MonoBehaviour
             if (betAmount + 50 <= playerTotal)
                 betAmount += 50;
             BetAmountText.text = betAmount.ToString();
-
         }
         else if (Input.GetKeyUp(DownKey))
         {
             if (betAmount > 100)
                 betAmount -= 50;
             BetAmountText.text = betAmount.ToString();
-
         }
-
 
         if (Input.GetKeyUp(LeftKey))
         {
@@ -120,7 +128,6 @@ public class PlayerBetController : MonoBehaviour
     Coroutine SetBidSideRoutine;
     IEnumerator AnimateBetsideBackRoutine()
     {
-
         float timer = 0;
         float totalTime = 1f;
         while(timer < totalTime)
@@ -131,6 +138,7 @@ public class PlayerBetController : MonoBehaviour
         }
         SetBidSideRoutine = null;
     }
+
     void CheckPlayerReady()
     {
         if (Input.GetKey(ReadyKey))
@@ -152,6 +160,7 @@ public class PlayerBetController : MonoBehaviour
             OnPlayerReady.Invoke();
         }
     }
+
     public void Reset()
     {
         ReadyText.text = GetReadyText;
@@ -159,7 +168,7 @@ public class PlayerBetController : MonoBehaviour
         betAmount = 100;
         readyCount = 0;
         TotalText.text = playerTotal.ToString();
-
+        BetOnSelf = true;
     }
 
 

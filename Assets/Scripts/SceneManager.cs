@@ -8,7 +8,8 @@ public class SceneManager : MonoBehaviour
     public static SceneManager instance;
     public enum Scene{
         Betting,
-        Fighting
+        Fighting,
+        PostFight
     }
 
     public Scene CurrentScene
@@ -29,6 +30,8 @@ public class SceneManager : MonoBehaviour
     public Action OnStartScene;
     public Action OnRoundEnd;
 
+    public PostFightSreenController fightScreen;
+
     void Awake()
     {
         if (instance != null) Destroy(this);
@@ -41,6 +44,18 @@ public class SceneManager : MonoBehaviour
         BettingCanvas.SetActive(true);
         LeftBetCont.OnPlayerReady += OnLeftReady;
         RightBetCont.OnPlayerReady += OnRigtReady;
+        fightScreen.Initialize(LeftBetCont,RightBetCont);
+        
+        fightScreen.OnPostScreenReady += OnPostSceneReady;
+
+    }
+
+    private void OnPostSceneReady()
+    {
+        LeftBetCont.Reset();
+        RightBetCont.Reset();
+        SetSceneType(Scene.Betting);
+
     }
 
     void OnLeftReady() {
@@ -92,21 +107,22 @@ public class SceneManager : MonoBehaviour
 
     public void PlayerDied(Player player)
     {
-        switch (player)
-        {
-            case Player.Left:
-                Debug.Log("left won");
-                break;
-            case Player.Right:
-                Debug.Log("Right won");
-                break;
-        }
+        //switch (player)
+        //{
+        //    case Player.Left:
+        //        Debug.Log("left lost");
+        //        break;
+        //    case Player.Right:
+        //        Debug.Log("Right lost");
+        //        break;
+        //}
         //balance bets
         LeftBetCont.EndRound(player);
         RightBetCont.EndRound(player);
 
-        SetSceneType(Scene.Betting);
+        SetSceneType(Scene.PostFight);
         ResetScene();
+        fightScreen.Show(player);
         OnRoundEnd.Invoke();
     }
 
