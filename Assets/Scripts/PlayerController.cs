@@ -85,7 +85,8 @@ public class PlayerController : MonoBehaviour
                     {
                         if (enemy.blocking == false)
                         {
-                        PlayerHealth -= 10;
+                            enemy.PlayerHealth-= 10;
+              
                         StartCoroutine(Shake.Shake(.15f,.4f));
                         }
 
