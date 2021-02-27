@@ -22,6 +22,9 @@ public class PlayerController : MonoBehaviour
 
     public Player playerType;
 
+    public GameObject punchArm;
+    public PunchTrigger poonch;
+
     bool inArena = false;
 
     public int PlayerHealth = 100;
@@ -32,6 +35,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 restingArmRotation,AttackArmRotation;
 
     private float faceingDirection = -1f;
+    public bool faceLeft;
 
     void Start()
     {
@@ -71,15 +75,29 @@ public class PlayerController : MonoBehaviour
         {
             HandleMovementInput();
             HandleCallThrowInput();
+            if (Input.GetKeyDown(Attack))
+            {   
+                if(poonch.canHitPlayer)
+                {
+                    PlayerHealth -= 10;
+
+                }
+                //punchArm.gameObject.SetActive(true);
+
+                
+                
+            }
             if (Input.GetKeyUp(Attack))
             {
-                HandleAttack();
+                //HandleAttack();
+                //punchArm.gameObject.SetActive(false);
+
             }
         }
         HandleHealth();
 
       
-
+        FaceDirection(faceLeft);
 
     }
 
@@ -129,13 +147,13 @@ public class PlayerController : MonoBehaviour
 
     void FaceDirection(bool isLeft)
     {
-        faceingDirection = isLeft ? -1: 1;
-        ArmPivot.localPosition = new Vector3(15 * faceingDirection, 5, 0);
+        //faceingDirection = isLeft ? -1: 1;
+        //ArmPivot.localPosition = new Vector3(75 * faceingDirection, 5, 0);
 
-        restingArmRotation = isLeft ? new Vector3(0,0,-60) : new Vector3(0, 0, 230);
-        AttackArmRotation = isLeft ? new Vector3(0, 0, 0) : new Vector3(0, 0, 180);
-        ArmPivot.localEulerAngles =  restingArmRotation;
-        Debug.Log(ArmPivot.localEulerAngles);
+        //restingArmRotation = isLeft ? new Vector3(0,0,-60) : new Vector3(0, 0, 230);
+       // AttackArmRotation = isLeft ? new Vector3(0, 0, 0) : new Vector3(0, 0, 180);
+        //ArmPivot.localEulerAngles =  restingArmRotation;
+       // Debug.Log(ArmPivot.localEulerAngles);
     }
 
     void HandleMovementInput()
@@ -144,11 +162,11 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(Right))
         {
             rb.AddForce(transform.right * thrust);
-            FaceDirection(false);
+           // FaceDirection(false);
         }else if (Input.GetKey(Left))
         {
             rb.AddForce(-transform.right * thrust);
-            FaceDirection(true);
+           // FaceDirection(true);
 
         }
         if (Input.GetKeyDown(Up) && grounded == true)
@@ -183,6 +201,7 @@ public class PlayerController : MonoBehaviour
 
         }
     }
+    
 
     void OnRoundEnd()
     {
