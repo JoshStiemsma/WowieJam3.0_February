@@ -16,7 +16,7 @@ TagManager:
   - 
   - PostProcessing
   - 
-  - 
+  - Player
   - 
   - 
   - 
@@ -41,4 +41,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Players
+    uniqueID: 3372595131
     locked: 0
