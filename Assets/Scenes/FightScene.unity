@@ -1180,6 +1180,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 855607037, guid: 012e970cebc2343459c5d5d669f36cdc, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1380116044, guid: 012e970cebc2343459c5d5d669f36cdc, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2128148889, guid: 012e970cebc2343459c5d5d669f36cdc, type: 3}
+      propertyPath: looping
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2128148889, guid: 012e970cebc2343459c5d5d669f36cdc, type: 3}
+      propertyPath: playOnAwake
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3784199537384632174, guid: 012e970cebc2343459c5d5d669f36cdc,
         type: 3}
       propertyPath: Shake
@@ -1259,6 +1275,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8529714193964696774, guid: 012e970cebc2343459c5d5d669f36cdc,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 012e970cebc2343459c5d5d669f36cdc, type: 3}
