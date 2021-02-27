@@ -16,7 +16,7 @@ TagManager:
   - 
   - PostProcessing
   - 
-  - 
+  - Player
   - 
   - 
   - 
@@ -39,6 +39,15 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 3089022581
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Players
+    uniqueID: 3372595131
+    locked: 0
+  - name: Flog
+    uniqueID: 3934495309
     locked: 0
