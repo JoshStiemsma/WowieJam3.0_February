@@ -36,6 +36,8 @@ public class PlayerController : MonoBehaviour
 
     private float faceingDirection = -1f;
     public bool faceLeft;
+    public CameraShake Shake;
+    public PlayerController enemy;
 
     void Start()
     {
@@ -79,7 +81,18 @@ public class PlayerController : MonoBehaviour
             {   
                 if(poonch.canHitPlayer)
                 {
-                    PlayerHealth -= 10;
+                    if(!blocking)
+                    {
+                        if (enemy.blocking == false)
+                        {
+                        PlayerHealth -= 10;
+                        StartCoroutine(Shake.Shake(.15f,.4f));
+                        }
+
+                    }
+                    
+                    // play damage animation
+                    // shake screen
 
                 }
                 //punchArm.gameObject.SetActive(true);
@@ -94,6 +107,19 @@ public class PlayerController : MonoBehaviour
 
             }
         }
+        if (Input.GetKey(Down))
+        {
+            blocking = true;
+           // poonch.isBlocking = true;
+
+        }else {
+               blocking = false;
+              // poonch.isBlocking = false;
+        }
+
+        Debug.Log(poonch.isBlocking);
+
+        
         HandleHealth();
 
       

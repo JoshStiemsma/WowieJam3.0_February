@@ -5,6 +5,8 @@ using UnityEngine;
 public class PunchTrigger : MonoBehaviour
 {
     public bool canHitPlayer;
+
+    public bool isBlocking;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,7 +16,7 @@ public class PunchTrigger : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(canHitPlayer);
+        //Debug.Log(canHitPlayer);
         
     }
     void OnTriggerEnter2D(Collider2D col)
@@ -23,6 +25,7 @@ public class PunchTrigger : MonoBehaviour
         {
             //Debug.Log("i hit the enemy");
             canHitPlayer = true;
+            //isBlocking = col.GetComponent<PlayerController.blocking>;
         } 
     }
     void OnTriggerExit2D(Collider2D col)
