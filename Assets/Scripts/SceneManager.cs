@@ -1,9 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿
 using UnityEngine;
-using UnityEngine.UI;
-
-using UnityEngine.Events;
 
 public class SceneManager : MonoBehaviour
 {
@@ -19,25 +15,40 @@ public class SceneManager : MonoBehaviour
     }
 
     private Scene m_currentScene;
-    public Button LeftReady, RightReady;
 
     public GameObject BettingCanvas;
 
+    public PlayerBetController LeftBetCont, RightBetCont;
+
+    private bool LeftReady, RightReady;
     void Start()
     {
         CurrentScene = Scene.Betting;
         BettingCanvas.SetActive(true);
-
-        LeftReady.onClick.AddListener(() => SetPlayerReady(true));
-        RightReady.onClick.AddListener(() => SetPlayerReady(false));
-
+        LeftBetCont.OnPlayerReady += OnLeftReady;
+        RightBetCont.OnPlayerReady += OnRigtReady;
     }
 
-    void SetPlayerReady(bool isLeft)
+    void OnLeftReady() {
+        LeftReady = true;
+    }
+
+    void OnRigtReady() {
+        RightReady = true;
+    }
+
+
+    public void ResetScene()
     {
-
+        LeftReady = false;
+        RightReady = false;
     }
 
+    public void Update()
+    {
+        if (LeftReady && RightReady)
+            SetSceneFighting();
+    }
 
     public void SetSceneFighting()
     {
@@ -47,6 +58,8 @@ public class SceneManager : MonoBehaviour
     private void SetSceneType(Scene s)
     {
         CurrentScene = s;
+        if (s == Scene.Fighting)
+            BettingCanvas.SetActive(false);
     }
 
 }
