@@ -1,10 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class SceneManager : MonoBehaviour
 {
-
     public enum Scene{
         Betting,
         Fighting
@@ -23,9 +23,6 @@ public class SceneManager : MonoBehaviour
         CurrentScene = Scene.Betting;
     }
 
-
-
-
     public void SetSceneFighting()
     {
         SetSceneType(Scene.Fighting);
@@ -35,6 +32,5 @@ public class SceneManager : MonoBehaviour
     {
         CurrentScene = s;
     }
-
 
 }
