@@ -58,11 +58,6 @@ public class PostFightSreenController : MonoBehaviour
     void Refresh(Player lostPlayer)
     {
 
-        //Debug.Log($" lost  {lostPlayer.ToString()}");
-
-        //Debug.Log($" left player win?  {lostPlayer != LBC.playerType}");
-        //Debug.Log($" r player win?  {lostPlayer != RBC.playerType}");
-
         LeftWinCover.enabled =(lostPlayer != LBC.playerType);
         RightWinCover.enabled =(lostPlayer != RBC.playerType);
 

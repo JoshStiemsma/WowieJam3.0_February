@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using UnityEngine.SceneManagement;
 
 public class StartSceneController : MonoBehaviour
 {
@@ -10,17 +10,12 @@ public class StartSceneController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartGameButton.onClick.AddListener( StartGame);
+        StartGameButton.onClick.AddListener(StartGame);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+  
     void StartGame()
     {
-        //SceneManager.
+        SceneManager.LoadScene("FightScene");
     }
 }

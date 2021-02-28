@@ -9,7 +9,8 @@ public class FightSceneManager : MonoBehaviour
     public enum Scene{
         Betting,
         Fighting,
-        PostFight
+        PostFight,
+        PostGame
     }
 
     public Scene CurrentScene
@@ -29,8 +30,15 @@ public class FightSceneManager : MonoBehaviour
 
     public Action OnStartScene;
     public Action OnRoundEnd;
+    public OnGameEnd OnGameEndHandler;
+
+    public delegate void OnGameEnd(Player WinPlayer);
+
+
 
     public PostFightSreenController fightScreen;
+    public PostGameScreenController EndScreen;
+
     public GameplayHud hud;
 
     void Awake()
@@ -49,6 +57,9 @@ public class FightSceneManager : MonoBehaviour
         fightScreen.Initialize(LeftBetCont,RightBetCont);
         
         fightScreen.OnPostScreenReady += OnPostSceneReady;
+       // OnGameEndHandler +=  SetSceneType(Scene.PostGame);
+       
+
 
     }
 
@@ -72,13 +83,11 @@ public class FightSceneManager : MonoBehaviour
             {
                 //correct
                 PlayerCalledThrowSolution(Player.Left, Player.Right);//wrong, right  loser, winner
-
             }
             else
             {
                 //wrong
                 PlayerCalledThrowSolution(Player.Right, Player.Left);//wrong, right  loser, winner
-
             }
         }
     }
@@ -146,13 +155,17 @@ public class FightSceneManager : MonoBehaviour
 
     public void PlayerDied(Player player)
     {
+
         LeftBetCont.EndRound(player);
         RightBetCont.EndRound(player);
 
+        if (CheckGameOver()) return;
+        
         SetSceneType(Scene.PostFight);
         ResetScene();
         fightScreen.Show(player);
         OnRoundEnd.Invoke();
+        
     }
 
 
@@ -162,11 +175,34 @@ public class FightSceneManager : MonoBehaviour
         LeftBetCont.EndRoundByThrowCall(lostPlayer);
         RightBetCont.EndRoundByThrowCall(lostPlayer);
 
+
+        if (CheckGameOver()) return;
+
+
         SetSceneType(Scene.PostFight);
         ResetScene();
         fightScreen.Show(lostPlayer);
         OnRoundEnd.Invoke();
+        
     }
 
-   
+    bool CheckGameOver()
+    {
+        if (LeftBetCont.GetTotalAmount <= 0)
+        {
+            OnGameEndHandler(Player.Right);
+            SetSceneType(Scene.PostGame);
+            return true;
+        }
+        else if (RightBetCont.GetTotalAmount <= 0)
+        {
+            OnGameEndHandler(Player.Left);
+            SetSceneType(Scene.PostGame);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }
