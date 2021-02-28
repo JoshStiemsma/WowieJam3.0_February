@@ -42,6 +42,7 @@ public class PlayerController : MonoBehaviour
     public PlayerController enemy;
     public ParticleSystem blood;
     public float airStrafe;
+    float timer;
 
 
     void Start()
@@ -78,13 +79,20 @@ public class PlayerController : MonoBehaviour
 
     public void Update()
     {
+        if(timer > 0 )
+        {
+        timer -= Time.deltaTime;
+        }
+        
         if (!inArena) return;
 
         if (!swinging)
         {
             HandleMovementInput();
-            if (Input.GetKeyDown(Attack))
+            if (Input.GetKeyDown(Attack) && timer <= 0)
             {   
+                timer = 1;
+
                 if(poonch.canHitPlayer)
                 {
                     if(!blocking)
@@ -92,6 +100,15 @@ public class PlayerController : MonoBehaviour
                         if (enemy.blocking == false)
                         {
                             enemy.PlayerHealth-= 10;
+                            enemy.rb.AddForce(transform.up * (thrust * 100));
+                            if(faceLeft){
+                                enemy.rb.AddForce(-transform.right * (thrust * 100));
+                            }
+                            else
+                            {                            
+                            enemy.rb.AddForce(transform.right * (thrust * 100));
+                            }
+                            enemy.grounded = false;
                             enemy.blood.Play();
                             // play blood particals
               
