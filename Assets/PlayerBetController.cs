@@ -26,7 +26,7 @@ public class PlayerBetController : MonoBehaviour
 
     string readyUpKey => playerType == Player.Left ? "Left Shift": "Key Pad Enter";
 
-
+    string MustSetBetTest = "Select Side to Bet On!";
     string GetReadyText;
 
     string PlayerReadyText = "Ready!";
@@ -39,6 +39,7 @@ public class PlayerBetController : MonoBehaviour
 
     public bool BetOnSelf = true;
 
+    private bool betHasBeenSet = false;
 
     public int GetBetAmount
     {
@@ -68,6 +69,7 @@ public class PlayerBetController : MonoBehaviour
             RightKey = KeyCode.Keypad6;
             ReadyKey = KeyCode.KeypadEnter;
         }
+        Reset();
     }
 
     public void Update()
@@ -75,7 +77,7 @@ public class PlayerBetController : MonoBehaviour
         if (!PlayerReady && FightSceneManager.instance.CurrentScene == FightSceneManager.Scene.Betting)
         {
             CheckPlayerBets();
-            CheckPlayerReady();
+           if(betHasBeenSet) CheckPlayerReady();
         }
         else
         {
@@ -134,8 +136,10 @@ public class PlayerBetController : MonoBehaviour
     {
         if (SetBidSideRoutine == null)
         {
-            BetOnSelf = _betOnSelf;
+            ReadyText.text =  GetReadyText;
 
+            BetOnSelf = _betOnSelf;
+            betHasBeenSet = true;
             SetBidSideRoutine = StartCoroutine(AnimateBetsideBackRoutine());
         }
     }
@@ -185,12 +189,13 @@ public class PlayerBetController : MonoBehaviour
 
     public void Reset()
     {
-        ReadyText.text = GetReadyText;
+        ReadyText.text = MustSetBetTest;
         PlayerReady = false;
         betAmount = 100;
         readyCount = 0;
         TotalText.text = playerTotal.ToString();
         BetOnSelf = true;
+        betHasBeenSet = false;
     }
 
 
