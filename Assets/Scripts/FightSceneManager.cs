@@ -60,9 +60,11 @@ public class FightSceneManager : MonoBehaviour
         fightScreen.Initialize(LeftBetCont,RightBetCont);
         
         fightScreen.OnPostScreenReady += OnPostSceneReady;
-       // OnGameEndHandler +=  SetSceneType(Scene.PostGame);
-       
+        // OnGameEndHandler +=  SetSceneType(Scene.PostGame);
 
+
+        ConfettiRed.Stop();
+        ConfettiBlue.Stop();
 
     }
 
