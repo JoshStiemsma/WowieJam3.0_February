@@ -41,6 +41,9 @@ public class FightSceneManager : MonoBehaviour
 
     public GameplayHud hud;
     public bool InFight = false;
+
+    public ParticleSystem ConfettiRed, ConfettiBlue;
+
     void Awake()
     {
         if (instance != null) Destroy(this);
@@ -156,13 +159,25 @@ public class FightSceneManager : MonoBehaviour
     public void PlayerDied(Player player)
     {
         InFight = false;
-        foreach(PlayerController pc in FindObjectsOfType<PlayerController>()) {
-            pc.PlayerDied(player);
-        }
+
+        if (player == Player.Left)
+            StartCoroutine(PlayConfetti(ConfettiRed));
+        else
+            StartCoroutine(PlayConfetti(ConfettiBlue));
+
         StartCoroutine(DeathPhaseRoutine(player));
         
     }
 
+
+
+    IEnumerator PlayConfetti(ParticleSystem ps )
+    {
+        ps.Play();
+        yield return new WaitForSeconds(5);
+        ps.Stop();
+
+    }
 
     IEnumerator DeathPhaseRoutine(Player player)
     {

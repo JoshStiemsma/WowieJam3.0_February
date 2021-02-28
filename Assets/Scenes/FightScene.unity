@@ -1417,6 +1417,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8896945528393307341, guid: ac44251e7194dd64899906bbfefab821,
+        type: 3}
+      propertyPath: ConfettiRed
+      value: 
+      objectReference: {fileID: 8529714192467529906}
+    - target: {fileID: 8896945528393307341, guid: ac44251e7194dd64899906bbfefab821,
+        type: 3}
+      propertyPath: ConfettiBlue
+      value: 
+      objectReference: {fileID: 8529714192467529905}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ac44251e7194dd64899906bbfefab821, type: 3}
 --- !u!114 &1213248456 stripped
@@ -1513,11 +1523,27 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 261346089470729950, guid: 012e970cebc2343459c5d5d669f36cdc,
+        type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 3.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 261346089470729950, guid: 012e970cebc2343459c5d5d669f36cdc,
+        type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 3.06
+      objectReference: {fileID: 0}
     - target: {fileID: 3784199537384632174, guid: 012e970cebc2343459c5d5d669f36cdc,
         type: 3}
       propertyPath: Shake
       value: 
       objectReference: {fileID: 1213248456}
+    - target: {fileID: 7326720716210542020, guid: 012e970cebc2343459c5d5d669f36cdc,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 7257415446288702165, guid: 8dba6491e0071ed4fa294e1211fcf343,
+        type: 3}
     - target: {fileID: 8527976778265447848, guid: 012e970cebc2343459c5d5d669f36cdc,
         type: 3}
       propertyPath: Shake
@@ -1585,3 +1611,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 012e970cebc2343459c5d5d669f36cdc, type: 3}
+--- !u!198 &8529714192467529905 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 5000558008720370902, guid: 012e970cebc2343459c5d5d669f36cdc,
+    type: 3}
+  m_PrefabInstance: {fileID: 8529714192467529904}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &8529714192467529906 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 6460106112521483562, guid: 012e970cebc2343459c5d5d669f36cdc,
+    type: 3}
+  m_PrefabInstance: {fileID: 8529714192467529904}
+  m_PrefabAsset: {fileID: 0}
