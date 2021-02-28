@@ -45,6 +45,10 @@ public class PlayerController : MonoBehaviour
     float timer;
     public Animator animatoer;
     float blockingTimer;
+    public AudioSource hit;
+    public AudioSource iorn;
+
+    public AudioSource jump;
 
 
     void Start()
@@ -115,6 +119,7 @@ public class PlayerController : MonoBehaviour
                         {
                             enemy.PlayerHealth-= 10;
                             enemy.rb.AddForce(transform.up * (thrust * 100));
+                            hit.Play();
                             if(faceLeft){
                                 enemy.rb.AddForce(-transform.right * (thrust * 100));
                             }
@@ -127,6 +132,17 @@ public class PlayerController : MonoBehaviour
                             // play blood particals
               
                         StartCoroutine(Shake.Shake(.15f,.4f));
+                        }else if (enemy.blocking)
+                        {
+                            iorn.Play();
+                            enemy.rb.AddForce(transform.up * (thrust * 50));
+                            if(faceLeft){
+                                enemy.rb.AddForce(-transform.right * (thrust * 50));
+                            }
+                            else
+                            {                            
+                            enemy.rb.AddForce(transform.right * (thrust * 50));
+                            }
                         }
 
                     }
@@ -260,6 +276,7 @@ public class PlayerController : MonoBehaviour
         {
             rb.AddForce(transform.up * (thrust * 100));
             grounded = false;
+            jump.Play();
         }
 
         if (Input.GetKey(Right)&& grounded == false)
