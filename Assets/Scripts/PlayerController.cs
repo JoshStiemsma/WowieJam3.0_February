@@ -97,8 +97,9 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKeyDown(Attack) && timer <= 0)
             {   
                 timer = .25f;
-                animatoer.enabled = true;
-                animatoer.Play("punch");
+                //animatoer.enabled = true;
+                //animatoer.Play("punch");
+                animatoer.SetTrigger("punch");
                 if (poonch.canHitPlayer)
                 {
                     if(!blocking)
@@ -222,6 +223,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(Right)&& grounded == true)
         {
             rb.velocity += new Vector2(thrust,rb.velocity.y);
+            animatoer.SetBool("walk",true);
             
            // rb.velocity.x = thrust; 
             //rigidbody.velocity = Vector3(0,10,0);
@@ -232,9 +234,13 @@ public class PlayerController : MonoBehaviour
         }else if (Input.GetKey(Left)&& grounded == true)
         {
              rb.velocity += new Vector2(-thrust,rb.velocity.y);
+             animatoer.SetBool("walk",true);
            // rb.AddForce(-transform.right * thrust);
            // FaceDirection(true);
 
+        }else
+        {
+            animatoer.SetBool("walk",false);
         }
         if (Input.GetKeyDown(Up) && grounded == true)
         {
