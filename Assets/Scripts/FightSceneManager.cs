@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class FightSceneManager : MonoBehaviour
@@ -9,6 +10,7 @@ public class FightSceneManager : MonoBehaviour
     public enum Scene{
         Betting,
         Fighting,
+        Death,
         PostFight,
         PostGame
     }
@@ -33,8 +35,6 @@ public class FightSceneManager : MonoBehaviour
     public OnGameEnd OnGameEndHandler;
 
     public delegate void OnGameEnd(Player WinPlayer);
-
-
 
     public PostFightSreenController fightScreen;
     public PostGameScreenController EndScreen;
@@ -132,7 +132,6 @@ public class FightSceneManager : MonoBehaviour
     private void SetSceneType(Scene s)
     {
         CurrentScene = s;
-       // BettingCanvas.SetActive(s == Scene.Betting);
 
         if (s == Scene.Fighting) hud.Show();
         else hud.Hide();
@@ -156,18 +155,41 @@ public class FightSceneManager : MonoBehaviour
     public void PlayerDied(Player player)
     {
 
+       StartCoroutine(DeathPhaseRoutine(player));
+        
+    }
+
+
+    IEnumerator DeathPhaseRoutine(Player player)
+    {
+        float timer = 0;
+        float totalTime = 5f;
+        //start confetti
+        while (timer < totalTime)
+        {
+            timer += Time.fixedDeltaTime;
+
+            yield return new WaitForSeconds(.01f);
+
+        }
+        //end confetti
+
+        MoveToPostFight(player);
+    }
+
+    void MoveToPostFight(Player player)
+    {
         LeftBetCont.EndRound(player);
         RightBetCont.EndRound(player);
 
         if (CheckGameOver()) return;
-        
+
         SetSceneType(Scene.PostFight);
         ResetScene();
         fightScreen.Show(player);
         OnRoundEnd.Invoke();
-        
     }
-
+   
 
     public void PlayerCalledThrowSolution(Player lostPlayer, Player winPlayer)
     {

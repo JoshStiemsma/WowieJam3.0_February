@@ -259,10 +259,15 @@ public class PlayerController : MonoBehaviour
 
     }
 
-
+    bool HoldingCallThrowKey = false;
     void HandleCallThrowInput()
     {
-        if (Input.GetKey(CallThrow))
+
+        if (Input.GetKeyDown(CallThrow) && !Input.GetKeyUp(CallThrow)) HoldingCallThrowKey = true;
+        if (!Input.GetKeyDown(CallThrow) && Input.GetKeyUp(CallThrow)) HoldingCallThrowKey = false;
+
+
+        if (HoldingCallThrowKey)
         {
             callThrowTimer += Time.fixedDeltaTime;
         }
@@ -283,6 +288,7 @@ public class PlayerController : MonoBehaviour
     void OnRoundEnd()
     {
         inArena = false;
+       HoldingCallThrowKey = false;
 
     }
 

@@ -57,10 +57,9 @@ public class PostFightSreenController : MonoBehaviour
 
     void Refresh(Player lostPlayer)
     {
-
         LeftWinCover.enabled =(lostPlayer != LBC.playerType);
-        RightWinCover.enabled =(lostPlayer != RBC.playerType);
 
+        RightWinCover.enabled =(lostPlayer != RBC.playerType);
 
         LeftBet.color = LBC.didPlayerWinBet ? Color.green : Color.red;
 
@@ -90,13 +89,21 @@ public class PostFightSreenController : MonoBehaviour
         CanvasGroup.blocksRaycasts = false;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
 
+
+    bool LeftPlayerHoldingReady = false, RightPlayerHoldingReady = false;
+    void Update() { 
+    
         if (FightSceneManager.instance.CurrentScene != FightSceneManager.Scene.PostFight) return;
 
-        if (Input.GetKey(KeyCode.LeftShift) )
+
+
+
+
+        if (Input.GetKeyDown(KeyCode.LeftShift) && !Input.GetKeyUp(KeyCode.LeftShift)) LeftPlayerHoldingReady = true;
+        if (!Input.GetKeyDown(KeyCode.LeftShift) && Input.GetKeyUp(KeyCode.LeftShift)) LeftPlayerHoldingReady = false;
+
+        if (LeftPlayerHoldingReady)
         {
             LeftReadyCount += Time.fixedDeltaTime;
             if (LeftReadyCount >= 3)
@@ -110,23 +117,24 @@ public class PostFightSreenController : MonoBehaviour
             LeftReadyCount =0;
         }
 
-        
 
-        if (Input.GetKey(KeyCode.KeypadEnter) )
+
+        if (Input.GetKeyDown(KeyCode.KeypadEnter) && !Input.GetKeyUp(KeyCode.KeypadEnter)) RightPlayerHoldingReady = true;
+        if (!Input.GetKeyDown(KeyCode.KeypadEnter) && Input.GetKeyUp(KeyCode.KeypadEnter)) RightPlayerHoldingReady = false;
+
+        if (RightPlayerHoldingReady)
         {
             RightReadyCount += Time.fixedDeltaTime;
             if (RightReadyCount >= 3)
             {
                 isRightReady = true;
                 RightReadyText.text = PlayerReadyText;
-
             }
         }
         else if(RightReadyCount <3)
         {
             RightReadyCount = 0;
         }
-
 
         LeftReadyImage.fillAmount = LeftReadyCount / 3f;
         RightReadyImage.fillAmount = RightReadyCount / 3f;
@@ -148,7 +156,8 @@ public class PostFightSreenController : MonoBehaviour
         RightReadyCount = 0;
         LeftReadyText.text = $"Hold {LeftreadyUpKey} key to Ready!"; ;
         RightReadyText.text = $"Hold {RightreadyUpKey} key to Ready!"; ;
-
+        LeftPlayerHoldingReady = false;
+        RightPlayerHoldingReady = false;
 
     }
 }

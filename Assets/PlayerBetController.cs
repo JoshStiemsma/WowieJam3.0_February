@@ -26,6 +26,7 @@ public class PlayerBetController : MonoBehaviour
 
     string readyUpKey => playerType == Player.Left ? "Left Shift": "Key Pad Enter";
 
+
     string GetReadyText;
 
     string PlayerReadyText = "Ready!";
@@ -76,6 +77,10 @@ public class PlayerBetController : MonoBehaviour
             CheckPlayerBets();
             CheckPlayerReady();
         }
+        else
+        {
+            playerHoldingKey = false;
+        }
     }
 
     public bool didPlayerWinBet = false;
@@ -97,8 +102,10 @@ public class PlayerBetController : MonoBehaviour
         else playerTotal -= betAmount;
 
     }
+
     void CheckPlayerBets()
     {
+
         if (Input.GetKeyUp(UpKey))
         {
             if (betAmount + 50 <= playerTotal)
@@ -148,9 +155,15 @@ public class PlayerBetController : MonoBehaviour
         SetBidSideRoutine = null;
     }
 
+    bool playerHoldingKey = false;
     void CheckPlayerReady()
     {
-        if (Input.GetKey(ReadyKey))
+       
+        
+        if (Input.GetKeyDown(ReadyKey) && !Input.GetKeyUp(ReadyKey)) playerHoldingKey = true;
+        if (!Input.GetKeyDown(ReadyKey) && Input.GetKeyUp(ReadyKey)) playerHoldingKey = false;
+
+        if (playerHoldingKey)
         {
             readyCount += Time.fixedDeltaTime;
             ReadyFillImage.fillAmount = readyCount / 3f;
