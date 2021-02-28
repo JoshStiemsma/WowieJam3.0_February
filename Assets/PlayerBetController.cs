@@ -88,6 +88,9 @@ public class PlayerBetController : MonoBehaviour
     public bool didPlayerWinBet = false;
     public void EndRound(Player lostPlayer)
     {
+       // pastBetAmount = betAmount;
+       // Debug.Log("EndRound");
+
         didPlayerWinBet = (BetOnSelf && playerType != lostPlayer) || ( !BetOnSelf && playerType == lostPlayer);
 
         if(didPlayerWinBet) playerTotal += betAmount;
@@ -97,7 +100,9 @@ public class PlayerBetController : MonoBehaviour
 
     public void EndRoundByThrowCall(Player lostPlayer)
     {
-       // Debug.Log($"EndRoundByThrowCall  lost {lostPlayer}");
+      //  Debug.Log("EndRoundByThrowCall");
+
+        // Debug.Log($"EndRoundByThrowCall  lost {lostPlayer}");
         didPlayerWinBet =  playerType != lostPlayer;
 
         if (didPlayerWinBet) playerTotal += betAmount;
@@ -191,7 +196,8 @@ public class PlayerBetController : MonoBehaviour
     {
         ReadyText.text = MustSetBetTest;
         PlayerReady = false;
-        betAmount = 100;
+        betAmount = playerTotal >= betAmount ? betAmount : 50;
+        BetAmountText.text = betAmount.ToString();
         readyCount = 0;
         ReadyFillImage.fillAmount = 0;
         TotalText.text = playerTotal.ToString();
