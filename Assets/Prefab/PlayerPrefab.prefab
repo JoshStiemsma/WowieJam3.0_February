@@ -104,7 +104,7 @@ GameObject:
   m_Component:
   - component: {fileID: 177978643340882867}
   m_Layer: 0
-  m_Name: leg-front-solver_Target
+  m_Name: Leg-front-solver_Target
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 6928084930865366967}
   - component: {fileID: 1170510131799366276}
   m_Layer: 0
-  m_Name: leg-front-solver
+  m_Name: Leg-front-solver
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -203,7 +203,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3873574851505170026}
   m_Layer: 0
-  m_Name: leg-back-solver_Target
+  m_Name: Leg-Back-Solver_Target
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -418,7 +418,7 @@ GameObject:
   - component: {fileID: 7751192866143561971}
   - component: {fileID: 6727233317714687492}
   m_Layer: 0
-  m_Name: leg-back-solver
+  m_Name: Leg-Back-Solver
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
