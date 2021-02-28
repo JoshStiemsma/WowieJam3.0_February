@@ -547,6 +547,7 @@ GameObject:
   - component: {fileID: 8280610414653476816}
   - component: {fileID: 858747460225591670}
   - component: {fileID: 8815746680146939849}
+  - component: {fileID: 3444782170091908834}
   m_Layer: 5
   m_Name: PostGameScreen
   m_TagString: Untagged
@@ -626,3 +627,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WinText: {fileID: 8308098132253025046}
   EndGame: {fileID: 762452653030330833}
+--- !u!225 &3444782170091908834
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9143063694098356396}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
