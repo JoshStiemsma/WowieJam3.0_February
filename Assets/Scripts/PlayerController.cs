@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -38,6 +38,9 @@ public class PlayerController : MonoBehaviour
     public bool faceLeft;
     public CameraShake Shake;
     public PlayerController enemy;
+    public ParticleSystem blood;
+    public float airStrafe;
+
 
     void Start()
     {
@@ -86,6 +89,8 @@ public class PlayerController : MonoBehaviour
                         if (enemy.blocking == false)
                         {
                             enemy.PlayerHealth-= 10;
+                            enemy.blood.Play();
+                            // play blood particals
               
                         StartCoroutine(Shake.Shake(.15f,.4f));
                         }
@@ -126,6 +131,7 @@ public class PlayerController : MonoBehaviour
       
         FaceDirection(faceLeft);
 
+       
     }
 
     Coroutine AttackRoutine;
@@ -186,13 +192,20 @@ public class PlayerController : MonoBehaviour
     void HandleMovementInput()
     {
 
-        if (Input.GetKey(Right))
+        if (Input.GetKey(Right)&& grounded == true)
         {
-            rb.AddForce(transform.right * thrust);
+            rb.velocity += new Vector2(thrust,rb.velocity.y);
+            
+           // rb.velocity.x = thrust; 
+            //rigidbody.velocity = Vector3(0,10,0);
+            //rb.velocity = rb.velocity.normalized * speed;
+
+           // rb.AddForce(transform.right * thrust);
            // FaceDirection(false);
-        }else if (Input.GetKey(Left))
+        }else if (Input.GetKey(Left)&& grounded == true)
         {
-            rb.AddForce(-transform.right * thrust);
+             rb.velocity += new Vector2(-thrust,rb.velocity.y);
+           // rb.AddForce(-transform.right * thrust);
            // FaceDirection(true);
 
         }
@@ -200,6 +213,15 @@ public class PlayerController : MonoBehaviour
         {
             rb.AddForce(transform.up * (thrust * 100));
             grounded = false;
+        }
+
+        if (Input.GetKey(Right)&& grounded == false)
+        {
+                rb.AddForce(transform.right * airStrafe);
+         } 
+         else if (Input.GetKey(Left)&& grounded == false)
+        {
+            rb.AddForce(-transform.right * airStrafe);
         }
 
 
