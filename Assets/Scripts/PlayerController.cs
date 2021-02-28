@@ -86,7 +86,7 @@ public class PlayerController : MonoBehaviour
         
         }else
         {
-            animatoer.enabled = false;
+           // animatoer.enabled = false;
         }
         
         if (!inArena) return;
@@ -96,10 +96,10 @@ public class PlayerController : MonoBehaviour
             HandleMovementInput();
             if (Input.GetKeyDown(Attack) && timer <= 0)
             {   
-                timer = 1;
+                timer = .25f;
                 animatoer.enabled = true;
-
-                if(poonch.canHitPlayer)
+                animatoer.Play("punch");
+                if (poonch.canHitPlayer)
                 {
                     if(!blocking)
                     {
