@@ -642,7 +642,7 @@ MonoBehaviour:
   callThrowTimer: 0
   playerType: 0
   punchArm: {fileID: 0}
-  poonch: {fileID: 0}
+  poonch: {fileID: 6867539322552715682}
   PlayerHealth: 100
   Arm: {fileID: 4734233399441932352}
   faceLeft: 0
