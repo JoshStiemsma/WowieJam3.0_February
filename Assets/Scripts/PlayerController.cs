@@ -43,6 +43,7 @@ public class PlayerController : MonoBehaviour
     public ParticleSystem blood;
     public float airStrafe;
     float timer;
+    public Animator animatoer;
 
 
     void Start()
@@ -82,6 +83,10 @@ public class PlayerController : MonoBehaviour
         if(timer > 0 )
         {
         timer -= Time.deltaTime;
+        
+        }else
+        {
+            animatoer.enabled = false;
         }
         
         if (!inArena) return;
@@ -92,6 +97,7 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKeyDown(Attack) && timer <= 0)
             {   
                 timer = 1;
+                animatoer.enabled = true;
 
                 if(poonch.canHitPlayer)
                 {
