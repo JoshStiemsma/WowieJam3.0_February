@@ -1361,6 +1361,16 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7436105885326695869, guid: ac44251e7194dd64899906bbfefab821,
+        type: 3}
+      propertyPath: LeftPlayer
+      value: 
+      objectReference: {fileID: 806279740}
+    - target: {fileID: 7436105885326695869, guid: ac44251e7194dd64899906bbfefab821,
+        type: 3}
+      propertyPath: RightPlayer
+      value: 
+      objectReference: {fileID: 929718884}
     - target: {fileID: 7440589653097275194, guid: ac44251e7194dd64899906bbfefab821,
         type: 3}
       propertyPath: m_Layer
