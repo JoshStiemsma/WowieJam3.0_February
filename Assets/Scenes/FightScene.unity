@@ -1798,13 +1798,13 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 012e970cebc2343459c5d5d669f36cdc, type: 3}
 --- !u!198 &8529714192467529905 stripped
 ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 5000558008720370902, guid: 012e970cebc2343459c5d5d669f36cdc,
+  m_CorrespondingSourceObject: {fileID: 1233790334727478983, guid: 012e970cebc2343459c5d5d669f36cdc,
     type: 3}
   m_PrefabInstance: {fileID: 8529714192467529904}
   m_PrefabAsset: {fileID: 0}
 --- !u!198 &8529714192467529906 stripped
 ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 6460106112521483562, guid: 012e970cebc2343459c5d5d669f36cdc,
+  m_CorrespondingSourceObject: {fileID: 6785283811866127599, guid: 012e970cebc2343459c5d5d669f36cdc,
     type: 3}
   m_PrefabInstance: {fileID: 8529714192467529904}
   m_PrefabAsset: {fileID: 0}
