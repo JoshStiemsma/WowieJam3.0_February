@@ -40,7 +40,8 @@ public class PlayerController : MonoBehaviour
     public bool faceLeft;
     public CameraShake Shake;
     public PlayerController enemy;
-    public ParticleSystem blood;
+    public ParticleSystem blood, confettiRed, confettiBlue;
+    private ParticleSystem Confetti;
     public float airStrafe;
     float timer;
     public Animator animatoer;
@@ -60,6 +61,7 @@ public class PlayerController : MonoBehaviour
             Down = KeyCode.S;
             Attack = KeyCode.Space;
             CallThrow = KeyCode.LeftShift;
+            Confetti = confettiRed;
         }
         else
         {
@@ -69,13 +71,17 @@ public class PlayerController : MonoBehaviour
             Down = KeyCode.Keypad5;
             Attack = KeyCode.Keypad0;
             CallThrow = KeyCode.KeypadEnter;
+            Confetti = confettiBlue;
 
         }
 
         FightSceneManager.instance.OnStartScene += OnStartArena;
         FightSceneManager.instance.OnRoundEnd += OnRoundEnd;
         OnCalledThrow += () => FightSceneManager.instance.PlayerCalledThrow(playerType);
+        confettiRed.Stop();
+        confettiBlue.Stop();
 
+        blood.Stop();
     }
 
     public void Update()
@@ -89,7 +95,7 @@ public class PlayerController : MonoBehaviour
            // animatoer.enabled = false;
         }
         
-        if (!inArena) return;
+        if (!inArena || !FightSceneManager.instance.InFight) return;
 
         if (!swinging)
         {
@@ -205,7 +211,31 @@ public class PlayerController : MonoBehaviour
         if (PlayerHealth <= 0)
         {
             FightSceneManager.instance.PlayerDied(playerType);
+
         }
+    }
+
+
+    public void PlayerDied(Player deadPlayer)
+    {
+        if(playerType == deadPlayer)
+        {
+            //show dead animation for 5 secopnds
+        }
+        else
+        {
+            StartCoroutine(PlayConfetti());
+        }
+    }
+  
+    IEnumerator PlayConfetti()
+    {
+
+
+        Confetti.Play();
+        yield return new WaitForSeconds(5);
+        Confetti.Stop();
+
     }
 
     void FaceDirection(bool isLeft)

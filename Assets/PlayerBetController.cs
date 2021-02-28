@@ -193,6 +193,7 @@ public class PlayerBetController : MonoBehaviour
         PlayerReady = false;
         betAmount = 100;
         readyCount = 0;
+        ReadyFillImage.fillAmount = 0;
         TotalText.text = playerTotal.ToString();
         BetOnSelf = true;
         betHasBeenSet = false;

@@ -40,7 +40,7 @@ public class FightSceneManager : MonoBehaviour
     public PostGameScreenController EndScreen;
 
     public GameplayHud hud;
-
+    public bool InFight = false;
     void Awake()
     {
         if (instance != null) Destroy(this);
@@ -124,6 +124,7 @@ public class FightSceneManager : MonoBehaviour
 
     public void SetSceneFighting()
     {
+        InFight = true;
         SetSceneType(Scene.Fighting);
         hud.Show();
         OnStartScene.Invoke();
@@ -154,31 +155,26 @@ public class FightSceneManager : MonoBehaviour
 
     public void PlayerDied(Player player)
     {
-
-       StartCoroutine(DeathPhaseRoutine(player));
+        InFight = false;
+        foreach(PlayerController pc in FindObjectsOfType<PlayerController>()) {
+            pc.PlayerDied(player);
+        }
+        StartCoroutine(DeathPhaseRoutine(player));
         
     }
 
 
     IEnumerator DeathPhaseRoutine(Player player)
     {
-        float timer = 0;
-        float totalTime = 5f;
-        //start confetti
-        while (timer < totalTime)
-        {
-            timer += Time.fixedDeltaTime;
-
-            yield return new WaitForSeconds(.01f);
-
-        }
-        //end confetti
-
+        
+        yield return new WaitForSeconds(5);
+         
         MoveToPostFight(player);
     }
 
     void MoveToPostFight(Player player)
     {
+
         LeftBetCont.EndRound(player);
         RightBetCont.EndRound(player);
 
@@ -196,6 +192,7 @@ public class FightSceneManager : MonoBehaviour
         Debug.Log($"PlayerCalledThrowSolution lost: {lostPlayer}  win:{winPlayer}");
         LeftBetCont.EndRoundByThrowCall(lostPlayer);
         RightBetCont.EndRoundByThrowCall(lostPlayer);
+        InFight = false;
 
 
         if (CheckGameOver()) return;
