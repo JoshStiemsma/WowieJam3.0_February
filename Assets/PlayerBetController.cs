@@ -71,7 +71,7 @@ public class PlayerBetController : MonoBehaviour
 
     public void Update()
     {
-        if (!PlayerReady && SceneManager.instance.CurrentScene == SceneManager.Scene.Betting)
+        if (!PlayerReady && FightSceneManager.instance.CurrentScene == FightSceneManager.Scene.Betting)
         {
             CheckPlayerBets();
             CheckPlayerReady();
@@ -90,7 +90,7 @@ public class PlayerBetController : MonoBehaviour
 
     public void EndRoundByThrowCall(Player lostPlayer)
     {
-        Debug.Log($"EndRoundByThrowCall  lost {lostPlayer}");
+       // Debug.Log($"EndRoundByThrowCall  lost {lostPlayer}");
         didPlayerWinBet =  playerType != lostPlayer;
 
         if (didPlayerWinBet) playerTotal += betAmount;

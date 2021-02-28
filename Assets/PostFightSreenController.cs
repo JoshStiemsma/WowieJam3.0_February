@@ -99,7 +99,7 @@ public class PostFightSreenController : MonoBehaviour
     void Update()
     {
 
-        if (SceneManager.instance.CurrentScene != SceneManager.Scene.PostFight) return;
+        if (FightSceneManager.instance.CurrentScene != FightSceneManager.Scene.PostFight) return;
 
         if (Input.GetKey(KeyCode.LeftShift) )
         {

@@ -71,9 +71,9 @@ public class PlayerController : MonoBehaviour
 
         }
 
-        SceneManager.instance.OnStartScene += OnStartArena;
-        SceneManager.instance.OnRoundEnd += OnRoundEnd;
-        OnCalledThrow += () => SceneManager.instance.PlayerCalledThrow(playerType);
+        FightSceneManager.instance.OnStartScene += OnStartArena;
+        FightSceneManager.instance.OnRoundEnd += OnRoundEnd;
+        OnCalledThrow += () => FightSceneManager.instance.PlayerCalledThrow(playerType);
 
     }
 
@@ -195,7 +195,7 @@ public class PlayerController : MonoBehaviour
 
         if (PlayerHealth <= 0)
         {
-            SceneManager.instance.PlayerDied(playerType);
+            FightSceneManager.instance.PlayerDied(playerType);
         }
     }
 
