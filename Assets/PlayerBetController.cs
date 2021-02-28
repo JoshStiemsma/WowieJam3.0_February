@@ -88,6 +88,15 @@ public class PlayerBetController : MonoBehaviour
 
     }
 
+    public void EndRoundByThrowCall(Player lostPlayer)
+    {
+        Debug.Log($"EndRoundByThrowCall  lost {lostPlayer}");
+        didPlayerWinBet =  playerType != lostPlayer;
+
+        if (didPlayerWinBet) playerTotal += betAmount;
+        else playerTotal -= betAmount;
+
+    }
     void CheckPlayerBets()
     {
         if (Input.GetKeyUp(UpKey))

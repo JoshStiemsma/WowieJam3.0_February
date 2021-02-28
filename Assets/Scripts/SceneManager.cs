@@ -31,12 +31,14 @@ public class SceneManager : MonoBehaviour
     public Action OnRoundEnd;
 
     public PostFightSreenController fightScreen;
+    public GameplayHud hud;
 
     void Awake()
     {
         if (instance != null) Destroy(this);
         instance = this;
         BettingCanvasGroup = BettingCanvas.GetComponent<CanvasGroup>();
+        SetSceneType(Scene.Betting);
     }
 
     void Start() { 
@@ -49,6 +51,38 @@ public class SceneManager : MonoBehaviour
         fightScreen.OnPostScreenReady += OnPostSceneReady;
 
     }
+
+    public void PlayerCalledThrow(Player player)
+    {
+        if(player == Player.Left)
+        {
+            Debug.Log($"LEFT player thinks  RIGHT player threw");
+            if (!RightBetCont.BetOnSelf)
+            {
+                PlayerCalledThrowSolution(Player.Right,Player.Left);//wrong, right  loser, winner
+            }
+            else
+            {
+                PlayerCalledThrowSolution(Player.Left, Player.Right);//wrong, right  loser, winner
+            }
+        }else
+        {
+            Debug.Log($"Right player thinks  Left player threw");
+            if (!LeftBetCont.BetOnSelf)
+            {
+                //correct
+                PlayerCalledThrowSolution(Player.Left, Player.Right);//wrong, right  loser, winner
+
+            }
+            else
+            {
+                //wrong
+                PlayerCalledThrowSolution(Player.Right, Player.Left);//wrong, right  loser, winner
+
+            }
+        }
+    }
+
 
     private void OnPostSceneReady()
     {
@@ -82,41 +116,36 @@ public class SceneManager : MonoBehaviour
     public void SetSceneFighting()
     {
         SetSceneType(Scene.Fighting);
+        hud.Show();
         OnStartScene.Invoke();
     }
 
     private void SetSceneType(Scene s)
     {
         CurrentScene = s;
-        BettingCanvas.SetActive(CurrentScene == Scene.Betting);
+       // BettingCanvas.SetActive(s == Scene.Betting);
 
-        if(CurrentScene == Scene.Betting)
+        if (s == Scene.Fighting) hud.Show();
+        else hud.Hide();
+
+        if (s == Scene.Betting)
         {
             BettingCanvasGroup.alpha = 1;
-            BettingCanvasGroup.blocksRaycasts = false;
-            BettingCanvasGroup.interactable = false;
+            BettingCanvasGroup.blocksRaycasts = true;
+            BettingCanvasGroup.interactable = true;
         }
         else
         {
             BettingCanvasGroup.alpha = 0;
-            BettingCanvasGroup.blocksRaycasts = true;
-            BettingCanvasGroup.interactable = true;
+            BettingCanvasGroup.blocksRaycasts = false;
+            BettingCanvasGroup.interactable = false;
         }
-
+        
+        if(s != Scene.Fighting) fightScreen.Hide();
     }
 
     public void PlayerDied(Player player)
     {
-        //switch (player)
-        //{
-        //    case Player.Left:
-        //        Debug.Log("left lost");
-        //        break;
-        //    case Player.Right:
-        //        Debug.Log("Right lost");
-        //        break;
-        //}
-        //balance bets
         LeftBetCont.EndRound(player);
         RightBetCont.EndRound(player);
 
@@ -126,4 +155,18 @@ public class SceneManager : MonoBehaviour
         OnRoundEnd.Invoke();
     }
 
+
+    public void PlayerCalledThrowSolution(Player lostPlayer, Player winPlayer)
+    {
+        Debug.Log($"PlayerCalledThrowSolution lost: {lostPlayer}  win:{winPlayer}");
+        LeftBetCont.EndRoundByThrowCall(lostPlayer);
+        RightBetCont.EndRoundByThrowCall(lostPlayer);
+
+        SetSceneType(Scene.PostFight);
+        ResetScene();
+        fightScreen.Show(lostPlayer);
+        OnRoundEnd.Invoke();
+    }
+
+   
 }

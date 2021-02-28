@@ -22,7 +22,16 @@ public class PostFightSreenController : MonoBehaviour
 
     public Action OnPostScreenReady;
 
-    [SerializeField] CanvasGroup canvasGroup;
+    private CanvasGroup _canvasGroup;
+    private CanvasGroup CanvasGroup
+    {
+        get
+        {
+            if (_canvasGroup == null) _canvasGroup = GetComponent<CanvasGroup>();
+            return _canvasGroup;
+
+        }
+    }
 
     private PlayerBetController LBC, RBC;
 
@@ -37,7 +46,6 @@ public class PostFightSreenController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        canvasGroup = this.GetComponent<CanvasGroup>();
         Hide();
     }
 
@@ -75,16 +83,16 @@ public class PostFightSreenController : MonoBehaviour
     public void Show(Player lostPlayer)
     {
         Refresh(lostPlayer);
-        canvasGroup.alpha = 1;
-        canvasGroup.interactable = true;
-        canvasGroup.blocksRaycasts = true;
+        CanvasGroup.alpha = 1;
+        CanvasGroup.interactable = true;
+        CanvasGroup.blocksRaycasts = true;
     }
 
     public void Hide()
     {
-        canvasGroup.alpha = 0;
-        canvasGroup.interactable = false;
-        canvasGroup.blocksRaycasts = false;
+        CanvasGroup.alpha = 0;
+        CanvasGroup.interactable = false;
+        CanvasGroup.blocksRaycasts = false;
     }
 
     // Update is called once per frame

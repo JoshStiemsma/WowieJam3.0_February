@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,7 +18,8 @@ public class PlayerController : MonoBehaviour
 
     Vector3 InitPosition;
 
-    float callThrowTimer = 0;
+    public float callThrowTimer = 0;
+    public Action OnCalledThrow;
 
 
     public Player playerType;
@@ -70,6 +72,8 @@ public class PlayerController : MonoBehaviour
 
         SceneManager.instance.OnStartScene += OnStartArena;
         SceneManager.instance.OnRoundEnd += OnRoundEnd;
+        OnCalledThrow += () => SceneManager.instance.PlayerCalledThrow(playerType);
+
     }
 
     public void Update()
@@ -79,7 +83,6 @@ public class PlayerController : MonoBehaviour
         if (!swinging)
         {
             HandleMovementInput();
-            HandleCallThrowInput();
             if (Input.GetKeyDown(Attack))
             {   
                 if(poonch.canHitPlayer)
@@ -127,8 +130,9 @@ public class PlayerController : MonoBehaviour
 
         
         HandleHealth();
+        HandleCallThrowInput();
 
-      
+
         FaceDirection(faceLeft);
 
        
@@ -239,15 +243,16 @@ public class PlayerController : MonoBehaviour
         {
             callThrowTimer += Time.fixedDeltaTime;
         }
-        else
+        else if(callThrowTimer < 3)
         {
             callThrowTimer = 0;
         }
 
 
-        if(callThrowTimer > 5)
+        if(callThrowTimer > 3)
         {
-
+            OnCalledThrow.Invoke();
+            callThrowTimer = 0;
         }
     }
     
