@@ -45,6 +45,7 @@ public class PlayerController : MonoBehaviour
     public float airStrafe;
     float timer;
     public Animator animatoer;
+    float blockingTimer;
 
 
     void Start()
@@ -86,6 +87,11 @@ public class PlayerController : MonoBehaviour
 
     public void Update()
     {
+        if(blockingTimer > 0 )
+        {
+        blockingTimer -= Time.deltaTime;
+        
+        }
         if(timer > 0 )
         {
         timer -= Time.deltaTime;
@@ -100,7 +106,7 @@ public class PlayerController : MonoBehaviour
         if (!swinging)
         {
             HandleMovementInput();
-            if (Input.GetKeyDown(Attack) && timer <= 0)
+            if (Input.GetKeyDown(Attack) && timer <= 0 && blockingTimer <=.75 && blocking == false)
             {   
                 timer = .25f;
                 //animatoer.enabled = true;
@@ -146,15 +152,17 @@ public class PlayerController : MonoBehaviour
 
             }
         }
-        if (Input.GetKey(Down))
+        if (Input.GetKey(Down) && blockingTimer <= 0)
         {
             blocking = true;
             animatoer.SetBool("blocking",true);
            // poonch.isBlocking = true;
 
-        }else {
+        }else if (Input.GetKeyUp(Down) && blockingTimer <= 0) {
                blocking = false;
                animatoer.SetBool("blocking",false);
+               blockingTimer = 1;
+
               // poonch.isBlocking = false;
         }
 
