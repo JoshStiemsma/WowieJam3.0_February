@@ -41,7 +41,7 @@ public class GameplayHud : MonoBehaviour
 
     private void Update()
     {
-        if (SceneManager.instance.CurrentScene != SceneManager.Scene.Fighting) return;
+        if (FightSceneManager.instance.CurrentScene != FightSceneManager.Scene.Fighting) return;
 
         LeftHealthBar.fillAmount = LeftPlayer.PlayerHealth / 100f;
         RightHealthBar.fillAmount = RightPlayer.PlayerHealth / 100f;

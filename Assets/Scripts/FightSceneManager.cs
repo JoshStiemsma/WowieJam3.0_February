@@ -2,10 +2,10 @@
 using System;
 using UnityEngine;
 
-public class SceneManager : MonoBehaviour
+public class FightSceneManager : MonoBehaviour
 {
 
-    public static SceneManager instance;
+    public static FightSceneManager instance;
     public enum Scene{
         Betting,
         Fighting,
