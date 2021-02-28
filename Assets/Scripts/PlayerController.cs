@@ -143,10 +143,12 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(Down))
         {
             blocking = true;
+            animatoer.SetBool("blocking",true);
            // poonch.isBlocking = true;
 
         }else {
                blocking = false;
+               animatoer.SetBool("blocking",false);
               // poonch.isBlocking = false;
         }
 
@@ -220,7 +222,7 @@ public class PlayerController : MonoBehaviour
     void HandleMovementInput()
     {
 
-        if (Input.GetKey(Right)&& grounded == true)
+        if (Input.GetKey(Right)&& grounded == true && blocking == false)
         {
             rb.velocity += new Vector2(thrust,rb.velocity.y);
             animatoer.SetBool("walk",true);
@@ -231,7 +233,7 @@ public class PlayerController : MonoBehaviour
 
            // rb.AddForce(transform.right * thrust);
            // FaceDirection(false);
-        }else if (Input.GetKey(Left)&& grounded == true)
+        }else if (Input.GetKey(Left)&& grounded == true && blocking == false)
         {
              rb.velocity += new Vector2(-thrust,rb.velocity.y);
              animatoer.SetBool("walk",true);
