@@ -222,15 +222,9 @@ public class PlayerController : MonoBehaviour
 
     void HandleHealth()
     {
-        if (Input.GetKeyDown(KeyCode.UpArrow) && playerType == Player.Left)
-        {
-            PlayerHealth = 0;
-        }
-
         if (PlayerHealth <= 0)
         {
             FightSceneManager.instance.PlayerDied(playerType);
-
         }
     }
 
