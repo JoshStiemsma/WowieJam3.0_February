@@ -118,14 +118,14 @@ public class PlayerController : MonoBehaviour
                         if (enemy.blocking == false)
                         {
                             enemy.PlayerHealth-= 10;
-                            enemy.rb.AddForce(transform.up * (thrust * 100));
+                            enemy.rb.AddForce(transform.up * (thrust * 50));
                             hit.Play();
                             if(faceLeft){
-                                enemy.rb.AddForce(-transform.right * (thrust * 100));
+                                enemy.rb.AddForce(-transform.right * (thrust * 50));
                             }
                             else
                             {                            
-                            enemy.rb.AddForce(transform.right * (thrust * 100));
+                            enemy.rb.AddForce(transform.right * (thrust * 50));
                             }
                             enemy.grounded = false;
                             enemy.blood.Play();
@@ -135,13 +135,13 @@ public class PlayerController : MonoBehaviour
                         }else if (enemy.blocking)
                         {
                             iorn.Play();
-                            enemy.rb.AddForce(transform.up * (thrust * 50));
+                            enemy.rb.AddForce(transform.up * (thrust * 25));
                             if(faceLeft){
-                                enemy.rb.AddForce(-transform.right * (thrust * 50));
+                                enemy.rb.AddForce(-transform.right * (thrust * 25));
                             }
                             else
                             {                            
-                            enemy.rb.AddForce(transform.right * (thrust * 50));
+                            enemy.rb.AddForce(transform.right * (thrust * 25));
                             }
                         }
 
