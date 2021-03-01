@@ -11,6 +11,7 @@ public class PostFightSreenController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI RightBet;
     [SerializeField] private TextMeshProUGUI LeftTotal;
     [SerializeField] private TextMeshProUGUI RightTotal;
+    [SerializeField] private TextMeshProUGUI LeftBetSideText,RightBetSideText;
 
 
     [SerializeField] private Image LeftReadyImage, RightReadyImage;
@@ -73,6 +74,11 @@ public class PostFightSreenController : MonoBehaviour
         RightBet.text = (RBC.didPlayerWinBet ? "+" : "-") + RBC.GetBetAmount.ToString();
 
         RightTotal.text = RBC.GetTotalAmount.ToString();
+
+
+
+        LeftBetSideText.text = LBC.BetOnSelf ? "<color=blue>Blue</color> Bet On <color=blue>Blue</color>" : "<color=blue>Blue</color> Bet On <color=red>Red</color>"; 
+        RightBetSideText.text = RBC.BetOnSelf ? "<color=red>Red</color> Bet On <color=red>Red</color>" : "<color=red>Red</color> Bet On <color=blue>Blue</color>";
     }
 
     public void Show(Player lostPlayer)
