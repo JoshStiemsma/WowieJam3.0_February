@@ -62,6 +62,7 @@ public class FightSceneManager : MonoBehaviour
         fightScreen.OnPostScreenReady += OnPostSceneReady;
         // OnGameEndHandler +=  SetSceneType(Scene.PostGame);
 
+        //on post screenr eady add check
 
         ConfettiRed.Stop();
         ConfettiBlue.Stop();
@@ -100,6 +101,8 @@ public class FightSceneManager : MonoBehaviour
 
     private void OnPostSceneReady()
     {
+        if (CheckGameOver()) return;
+
         LeftBetCont.Reset();
         RightBetCont.Reset();
         SetSceneType(Scene.Betting);
@@ -195,7 +198,6 @@ public class FightSceneManager : MonoBehaviour
         LeftBetCont.EndRound(player);
         RightBetCont.EndRound(player);
 
-        if (CheckGameOver()) return;
 
         SetSceneType(Scene.PostFight);
         ResetScene();
@@ -212,7 +214,6 @@ public class FightSceneManager : MonoBehaviour
         InFight = false;
 
 
-        if (CheckGameOver()) return;
 
 
         SetSceneType(Scene.PostFight);
