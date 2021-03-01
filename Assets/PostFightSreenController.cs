@@ -23,6 +23,7 @@ public class PostFightSreenController : MonoBehaviour
     public Action OnPostScreenReady;
 
     private CanvasGroup _canvasGroup;
+    public AudioSource sound;
     private CanvasGroup CanvasGroup
     {
         get
@@ -106,8 +107,10 @@ public class PostFightSreenController : MonoBehaviour
         if (LeftPlayerHoldingReady)
         {
             LeftReadyCount += Time.fixedDeltaTime;
-            if (LeftReadyCount >= 3)
+            if (LeftReadyCount >= 3 && !isLeftReady)
             {
+                //sound
+                sound.Play();
                 isLeftReady = true;
                 LeftReadyText.text = PlayerReadyText;
             }
@@ -125,8 +128,10 @@ public class PostFightSreenController : MonoBehaviour
         if (RightPlayerHoldingReady)
         {
             RightReadyCount += Time.fixedDeltaTime;
-            if (RightReadyCount >= 3)
+            if (RightReadyCount >= 3 && !isRightReady)
             {
+                //sound
+                sound.Play();
                 isRightReady = true;
                 RightReadyText.text = PlayerReadyText;
             }
