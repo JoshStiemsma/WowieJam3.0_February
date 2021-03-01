@@ -10,9 +10,9 @@ public class PostGameScreenController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI WinText;
     [SerializeField] private Button EndGame;
 
-    string LeftWintText = "Left Player Won!";
+    string LeftWintText = "Blue Player Won!";
 
-    string RightWintText = "Right Player Won!";
+    string RightWintText = "Red Player Won!";
 
     private CanvasGroup _canvasGroup;
     private CanvasGroup CanvasGroup
