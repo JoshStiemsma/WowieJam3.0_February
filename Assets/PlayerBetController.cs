@@ -50,6 +50,11 @@ public class PlayerBetController : MonoBehaviour
         get { return playerTotal; }
     }
 
+    public AudioSource tick;
+    public AudioSource confirm;
+
+    public AudioSource bet;
+
     private void Start()
     {
         GetReadyText = $"Hold {readyUpKey} key to Ready!";
@@ -115,12 +120,16 @@ public class PlayerBetController : MonoBehaviour
 
         if (Input.GetKeyUp(UpKey))
         {
+            //noise
+            tick.Play();
             if (betAmount + 50 <= playerTotal)
                 betAmount += 50;
             BetAmountText.text = betAmount.ToString();
         }
         else if (Input.GetKeyUp(DownKey))
         {
+            //noise
+             tick.Play();
             if (betAmount > 100)
                 betAmount -= 50;
             BetAmountText.text = betAmount.ToString();
@@ -128,10 +137,14 @@ public class PlayerBetController : MonoBehaviour
 
         if (Input.GetKeyUp(LeftKey))
         {
+            //noise
+             bet.Play();
             SetBettingSide(true);
         }
         else if (Input.GetKeyUp(RightKey))
         {
+            //noise
+             bet.Play();
             SetBettingSide(false);
         }
 
@@ -185,6 +198,8 @@ public class PlayerBetController : MonoBehaviour
 
         if (readyCount > 3 && !PlayerReady)
         {
+            //noise
+            confirm.Play();
             ReadyText.text = PlayerReadyText;
 
             PlayerReady = true;
