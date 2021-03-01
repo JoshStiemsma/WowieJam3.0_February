@@ -172,7 +172,7 @@ public class PlayerController : MonoBehaviour
         }else if (Input.GetKeyUp(Down) && blockingTimer <= 0) {
                blocking = false;
                animatoer.SetBool("blocking",false);
-               blockingTimer = 1;
+               blockingTimer = .5f;
 
               // poonch.isBlocking = false;
         }
